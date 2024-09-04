@@ -7,7 +7,7 @@ import {
   TokensSwappedForETH
 } from "./model";
 import { processor, MEME_FORGE_CONTRACT } from "./processor";
-import { events } from "./abi/pump-fun";
+import { events } from "./abi/meme-forge";
 
 processor.run(new TypeormDatabase(), async (ctx) => {
   for (const c of ctx.blocks) {
