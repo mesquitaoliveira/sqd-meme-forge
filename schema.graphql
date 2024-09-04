@@ -1,0 +1,85 @@
+type Deployed @entity {
+  id: ID!
+  token: String!
+  amount0: BigInt!
+  amount1: BigInt!
+  blockNumber: Int! # Se o número do bloco não for muito grande
+  blockTimestamp: DateTime!
+  transactionHash: String!
+}
+
+type ETHSwappedForTokens @entity {
+  id: ID!
+  token: String!
+  pair: String!
+  to: String!
+  referree: String!
+  amountIn: BigInt!
+  amountOut: BigInt!
+  newPrice: BigInt!
+  newMarketCap: BigInt!
+  newLiquidity: BigInt!
+  newVolume: BigInt!
+  newVolume24H: BigInt!
+  prevPrice: BigInt!
+  lastUpdated: DateTime!
+  blockNumber: Int!
+  blockTimestamp: DateTime!
+  transactionHash: String!
+}
+
+type Launched @entity {
+  id: ID!
+  token: String!
+  pair: String!
+  param2: BigInt!
+  blockNumber: Int!
+  blockTimestamp: DateTime!
+  transactionHash: String!
+}
+
+type TokenLaunched @entity {
+  id: ID!
+  token: String!
+  pair: String!
+  creator: String!
+  name: String!
+  ticker: String!
+  description: String!
+  image: String!
+  twitter: String!
+  telegram: String!
+  youtube: String!
+  website: String!
+  supply: BigInt!
+  price: BigInt!
+  marketCap: BigInt!
+  liquidity: BigInt!
+  volume: BigInt!
+  volume24H: BigInt!
+  prevPrice: BigInt!
+  lastUpdated: DateTime!
+  blockNumber: Int!
+  blockTimestamp: DateTime!
+  transactionHash: String!
+}
+
+type TokensSwappedForETH @entity {
+  id: ID!
+  token: String!
+  pair: String!
+  to: String!
+  referree: String!
+  amountIn: BigInt!
+  amountOut: BigInt!
+  newPrice: BigInt!
+  newMarketCap: BigInt!
+  newLiquidity: BigInt!
+  newVolume: BigInt!
+  newVolume24H: BigInt!
+  prevPrice: BigInt!
+  lastUpdated: DateTime!
+  blockNumber: Int!
+  blockTimestamp: DateTime!
+  transactionHash: String!
+}
