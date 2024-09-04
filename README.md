@@ -143,6 +143,66 @@ processor.run(new TypeormDatabase(), async (ctx) => {
    sqd typegen
    ```
 
+5. Example Query:
+```graphql
+query TokenDataquery($token: String!) {
+    ethSwappedForTokens(
+      where: { token_eq: $token }
+      orderBy: id_DESC
+      limit: 1
+    ) {
+      newVolume24H
+      newLiquidity
+      newPrice
+    }
+    tokenLauncheds(where: { token_eq: $token }) {
+      name
+      ticker
+      image
+      creator
+      supply
+      twitter
+      youtube
+      telegram
+      website
+    }
+  }
+```	
+
+Query Variables:
+```json
+{
+	"token": "0xfcfb6ba28dafeaa4983ef28d6d739f650f05ce17"
+}
+```
+Result:
+```json
+{
+	"data": {
+		"ethSwappedForTokens": [
+			{
+				"newVolume24H": "90000000",
+				"newLiquidity": "500000180000000",
+				"newPrice": "99999999"
+			}
+		],
+		"tokenLauncheds": [
+			{
+				"name": "The Animal",
+				"ticker": "THEAN",
+				"image": "QmcLnPrZmJzD2MG44fVtnwbaLk6V4URU4BmVikWcbLT5Ae",
+				"creator": "0x3ed267ecb07a714dc590cb89748989e57afe6e04",
+				"supply": "100000000000000000000000000",
+				"twitter": "",
+				"youtube": "",
+				"telegram": "",
+				"website": ""
+			}
+		]
+	}
+}
+```
+
 #### Final Considerations
 
 - **Database Migrations**: Migrations are automatically generated and applied through files located in `db/migrations`.
