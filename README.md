@@ -210,9 +210,9 @@ Result:
 
 Now, you can start indexing smart contract data using Subsquid and query it directly through the GraphQL server.
 
-```markdown
+
 > ⚠️ **Warning**: 😅 There is a known bug with the `timestamp` data type in this project. Please ensure that any operations involving timestamps are thoroughly tested and handled carefully to avoid inconsistencies in data processing.
-```
+
 
 Example:
 
