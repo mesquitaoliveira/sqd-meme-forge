@@ -209,3 +209,81 @@ Result:
 - **Environment Variables Configuration**: Subsquid tools refer to the `.env` file for environment variables.
 
 Now, you can start indexing smart contract data using Subsquid and query it directly through the GraphQL server.
+
+```markdown
+> ⚠️ **Warning**: 😅 There is a known bug with the `timestamp` data type in this project. Please ensure that any operations involving timestamps are thoroughly tested and handled carefully to avoid inconsistencies in data processing.
+```
+
+Example:
+
+````graphql
+query TokenDataquery($token: String!) {
+    ethSwappedForTokens(
+      where: { token_eq: $token }
+      orderBy: id_DESC
+      limit: 1
+    ) {
+      newVolume24H
+      newLiquidity
+      newPrice
+		blockTimestamp # 🐛 Bug with timestamp data type 
+    }
+    tokenLauncheds(where: { token_eq: $token }) {
+      name
+      ticker
+      image
+      creator
+      supply
+      twitter
+      youtube
+      telegram
+      website
+    }
+  }
+```
+Query Variables:
+```json
+{
+	"token": "0xfcfb6ba28dafeaa4983ef28d6d739f650f05ce17"
+}
+```	
+Result:
+```json
+{
+	"errors": [
+		{
+			"message": "Not a DateTime: 56644-03-15T08:40:00.000000Z",
+			"locations": [
+				{
+					"line": 10,
+					"column": 5
+				}
+			],
+			"path": [
+				"ethSwappedForTokens",
+				0,
+				"blockTimestamp"
+			],
+			"extensions": {
+				"code": "INTERNAL_SERVER_ERROR",
+				"exception": {
+					"stacktrace": [
+						"TypeError: Not a DateTime: 56644-03-15T08:40:00.000000Z",
+						"    at invalidFormat (/squid/node_modules/@subsquid/openreader/lib/util/util.js:32:12)",
+						"    at GraphQLScalarType.serialize (/squid/node_modules/@subsquid/openreader/lib/scalars/DateTime.js:15:48)",
+						"    at completeLeafValue (/squid/node_modules/graphql/execution/execute.js:664:37)",
+						"    at completeValue (/squid/node_modules/graphql/execution/execute.js:589:12)",
+						"    at completeValue (/squid/node_modules/graphql/execution/execute.js:567:21)",
+						"    at resolveField (/squid/node_modules/graphql/execution/execute.js:483:19)",
+						"    at executeFields (/squid/node_modules/graphql/execution/execute.js:293:20)",
+						"    at collectAndExecuteSubfields (/squid/node_modules/graphql/execution/execute.js:759:10)",
+						"    at completeObjectValue (/squid/node_modules/graphql/execution/execute.js:749:10)",
+						"    at completeValue (/squid/node_modules/graphql/execution/execute.js:601:12)"
+					]
+				}
+			}
+		}
+	],
+	"data": null
+}
+```
